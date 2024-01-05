@@ -51,8 +51,13 @@ function intialize() {
             if (0 < col && col <= width) {
                 col -=1;
             }
-            let curentTile = document.getElementById(row.toString() + '-' + col.toString());
+            let currentTile = document.getElementById(row.toString() + '-' + col.toString());
             currentTile.innerText = "";
+        }
+        if (e.code == "Enter"){
+            update();
+            row++;
+            col = 0;
         }
   
 
@@ -60,4 +65,29 @@ function intialize() {
     })
 
 
+}
+
+
+function update() {
+    let correct = 0;
+    for (let c = 0; c < width; c++){
+        let tile = document.getElementById(row.toString() + "-" + c);
+        let letter = tile.innerText;
+
+        // correct position? 
+        if (word[c] == letter) {
+            tile.classList.add("correct");
+            correct++;
+        }
+        else if (word.includes(letter)) {
+            tile.classList.add("present");
+        }
+        else {
+            tile.classList.add("absent");
+        }
+
+        if (correct == width) {
+            gameOver = true;
+        }
+    }
 }
